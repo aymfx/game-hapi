@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import Card from './components/card.vue'
-import { useGame } from './core/useGame'
-import { fireworks } from './core/utils'
+import { ref } from "vue";
+import Card from "./components/card.vue";
+import { useGame } from "./core/useGame";
+import { fireworks } from "./core/utils";
 
-const containerRef = ref<HTMLElement | undefined>()
-const clickAudioRef = ref<HTMLAudioElement | undefined>()
-const dropAudioRef = ref<HTMLAudioElement | undefined>()
-const winAudioRef = ref<HTMLAudioElement | undefined>()
-const loseAudioRef = ref<HTMLAudioElement | undefined>()
+const containerRef = ref<HTMLElement | undefined>();
+const clickAudioRef = ref<HTMLAudioElement | undefined>();
+const dropAudioRef = ref<HTMLAudioElement | undefined>();
+const winAudioRef = ref<HTMLAudioElement | undefined>();
+const loseAudioRef = ref<HTMLAudioElement | undefined>();
 
-const isWin = ref(false)
+const isWin = ref(false);
 
 const {
   nodes,
@@ -33,41 +33,51 @@ const {
     winCallback: handleWin,
     loseCallback: handleLose,
   },
-})
+});
 
 function handleClickCard() {
   if (clickAudioRef.value?.paused) {
-    clickAudioRef.value.play()
-  }
-  else if (clickAudioRef.value) {
-    clickAudioRef.value.load()
-    clickAudioRef.value.play()
+    clickAudioRef.value.play();
+  } else if (clickAudioRef.value) {
+    clickAudioRef.value.load();
+    clickAudioRef.value.play();
   }
 }
 
 function handleDropCard() {
-  dropAudioRef.value?.play()
+  dropAudioRef.value?.play();
 }
 
 function handleWin() {
-  winAudioRef.value?.play()
-  isWin.value = true
-  fireworks()
+  winAudioRef.value?.play();
+  isWin.value = true;
+  fireworks();
 }
 
 function handleLose() {
-  loseAudioRef.value?.play()
+  loseAudioRef.value?.play();
   setTimeout(() => {
-    alert('槽位已满，再接再厉~')
-    window.location.reload()
-  }, 500)
+    alert("槽位已满，再接再厉~");
+    window.location.reload();
+  }, 500);
 }
 </script>
 
 <template>
   <div flex flex-col w-full h-full>
-    <div text-44px text-center w-full color="#000" fw-600 h-60px flex items-center justify-center mt-10px>
-      兔了个兔
+    <div
+      text-28px
+      text-center
+      w-full
+      color="#000"
+      fw-600
+      h-60px
+      flex
+      items-center
+      justify-center
+      mt-0px
+    >
+      🐯了个🐯
     </div>
     <div ref="containerRef" flex-1 flex>
       <div w-full relative flex-1>
@@ -82,15 +92,26 @@ function handleLose() {
         </template>
       </div>
       <transition name="bounce">
-        <div v-if="isWin" color="#000" flex items-center justify-center w-full text-28px fw-bold>
-          成功加入兔圈~
+        <div
+          v-if="isWin"
+          color="#000"
+          flex
+          items-center
+          justify-center
+          w-full
+          text-28px
+          fw-bold
+        >
+          成功加入🐯圈~
         </div>
       </transition>
     </div>
 
     <div text-center h-50px flex items-center justify-center>
       <Card
-        v-for="item in removeList" :key="item.id" :node="item"
+        v-for="item in removeList"
+        :key="item.id"
+        :node="item"
         is-dock
         @click-card="handleSelectRemove"
       />
@@ -99,68 +120,39 @@ function handleLose() {
       <div border="~ 4px dashed #000" w-295px h-44px flex>
         <template v-for="item in selectedNodes" :key="item.id">
           <transition name="bounce">
-            <Card
-              v-if="item.state === 2"
-              :node="item"
-              is-dock
-            />
+            <Card v-if="item.state === 2" :node="item" is-dock />
           </transition>
         </template>
       </div>
     </div>
 
-    <div h-50px flex items-center w-full justify-center>
+    <div h-80px flex items-center w-full justify-center>
       <button :disabled="removeFlag" mr-10px @click="handleRemove">
         移出前三个
       </button>
-      <button :disabled="backFlag" @click="handleBack">
-        回退
-      </button>
-    </div>
-    <div w-full color="#000" fw-600 text-center pb-10px>
-      <span mr-20px>designer: Teacher Face</span>
-      by: Xc
-      <a
-        class="icon-btn"
-        color="#000"
-        i-carbon-logo-github
-        rel="noreferrer"
-        href="https://github.com/chenxch"
-        target="_blank"
-        title="GitHub"
-      />
-      <span
-        text-12px
-        color="#00000018"
-      >
-        <span
-          class="icon-btn"
-          text-2
-          i-carbon:arrow-up-left
-        />
-        star buff</span>
+      <button :disabled="backFlag" @click="handleBack">回退</button>
     </div>
     <audio
       ref="clickAudioRef"
-      style="display: none;"
+      style="display: none"
       controls
       src="./audio/click.mp3"
     />
     <audio
       ref="dropAudioRef"
-      style="display: none;"
+      style="display: none"
       controls
       src="./audio/drop.mp3"
     />
     <audio
       ref="winAudioRef"
-      style="display: none;"
+      style="display: none"
       controls
       src="./audio/win.mp3"
     />
     <audio
       ref="loseAudioRef"
-      style="display: none;"
+      style="display: none"
       controls
       src="./audio/lose.mp3"
     />
@@ -168,7 +160,7 @@ function handleLose() {
 </template>
 
 <style>
-body{
+body {
   background-color: #c3fe8b;
 }
 
