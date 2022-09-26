@@ -77,7 +77,7 @@ function handleLose() {
       justify-center
       mt-0px
     >
-      🐯了个🐯
+      巧了个巧
     </div>
     <div ref="containerRef" flex-1 flex>
       <div w-full relative flex-1>
@@ -102,7 +102,7 @@ function handleLose() {
           text-28px
           fw-bold
         >
-          成功加入🐯圈~
+          成功加入巧圈~
         </div>
       </transition>
     </div>
